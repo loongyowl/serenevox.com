@@ -1,0 +1,31 @@
+# 应用程序的元数据
+name: Twine Web
+version: 2.8.1
+description: A web-based tool for creating interactive stories.
+author: Your Name
+icon: https://serenevox.com/img/twine_book/app-release.ico  # 如果有图标，可以指定图标的URL
+
+# Docker 镜像和运行配置
+docker_image: nginx:latest
+ports:
+  - 88:88
+
+# 环境变量
+environment:
+  - TZ=Asia/Shanghai  # 你可以根据需要设置时区
+
+# 安装脚本
+install_script:
+  - apt-get update
+  - apt-get install -y unzip wget
+  - wget https://github.com/loongyowl/serenevox.com/raw/main/twine/twine-2.8.1-web.zip -O /tmp/twine-2.8.1-web.zip
+  - unzip -o /tmp/twine-2.8.1-web.zip -d /usr/share/nginx/html
+  - rm /tmp/twine-2.8.1-web.zip
+
+# 运行脚本
+run_script:
+  - nginx -g 'daemon off;'
+
+# 卸载脚本
+uninstall_script:
+  - docker rm -f twine-web
