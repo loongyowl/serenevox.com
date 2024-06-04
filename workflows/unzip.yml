@@ -1,0 +1,33 @@
+name: Unzip Files
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y unzip wget
+
+    - name: Download ZIP file
+      run: wget https://github.com/loongyowl/serenevox.com/raw/main/twine/twine-2.8.1-web.zip -O /tmp/twine-2.8.1-web.zip
+
+    - name: Unzip file
+      run: unzip -o /tmp/twine-2.8.1-web.zip -d twine
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add twine
+        git commit -m "Unzip twine-2.8.1-web.zip"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
