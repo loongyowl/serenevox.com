@@ -16,10 +16,16 @@ jobs:
     - name: Unzip file
       run: unzip -o https://github.com/loongyowl/serenevox.com/blob/main/twine/twine-2.8.1-web.zip -d https://github.com/loongyowl/serenevox.com/blob/main/twine/
 
-    - name: Commit changes
+    - name: Configure Git
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Commit changes
+      run: |
+        cd path/to/extract/to
         git add .
         git commit -m "Unzip files"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
