@@ -3,3 +3,6 @@
 
 # Twine桌面版
 [Twine桌面版下载地址](https://github.com/klembot/twinejs/releases)
+
+# 微信社群
+![微信社群二维码](https://serenevox.com/img/learn/Twine_group.jpg)
